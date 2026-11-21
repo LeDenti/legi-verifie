@@ -44,6 +44,14 @@ def racine(feuilles):
     return niveau[0]
 
 
+def ecrire_gz(chemin, texte):
+    """Deterministic gzip (no name, mtime 0): an unchanged file keeps the same bytes."""
+    data = texte.encode("utf-8")
+    with open(chemin, "wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, compresslevel=9, mtime=0) as w:
+            w.write(data)
+
+
 def lire_jsonl(chemin):
     with open(chemin, encoding="utf-8") as f:
         return [json.loads(l) for l in f if l.strip()]
@@ -117,12 +125,10 @@ def main():
 
     os.makedirs(os.path.join(OUT, "art"), exist_ok=True)
     for k, rows in shards.items():
-        with gzip.open(os.path.join(OUT, "art", f"{k}.tsv.gz"), "wt", encoding="utf-8", compresslevel=9) as w:
-            w.write("\n".join(sorted(rows)) + "\n")
+        ecrire_gz(os.path.join(OUT, "art", f"{k}.tsv.gz"), "\n".join(sorted(rows)) + "\n")
     os.makedirs(os.path.join(OUT, "code"), exist_ok=True)
     for t, rows in par_code.items():
-        with gzip.open(os.path.join(OUT, "code", f"{t}.tsv.gz"), "wt", encoding="utf-8", compresslevel=9) as w:
-            w.write("\n".join(sorted(rows, key=lambda r: (r.split("\t")[7], r.split("\t")[1]))) + "\n")
+        ecrire_gz(os.path.join(OUT, "code", f"{t}.tsv.gz"), "\n".join(sorted(rows, key=lambda r: (r.split("\t")[7], r.split("\t")[1]))) + "\n")
     with open(os.path.join(OUT, "codes.json"), "w") as w:
         json.dump(sorted(codes.values(), key=lambda c: c["titre"]), w, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(OUT, "jours.json"), "w") as w:
