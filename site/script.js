@@ -28,6 +28,11 @@ export const NOT_SUPPORTED = [
 /**
  * Hex helpers and SHA-256 through Web Crypto (browser and Node).
  */
+/**
+ * The short form of a long hash, made here so no model has to shorten one itself:
+ * the first 8 and last 8 characters.
+ */
+export const short = (h) => (h && h.length > 20 ? `${h.slice(0, 8)}…${h.slice(-8)}` : h);
 export const hex = (bytes) => [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
 export const unhex = (h) => Uint8Array.from(h.match(/../g).map((x) => parseInt(x, 16)));
 export async function sha256(bytes) {
@@ -274,11 +279,14 @@ export class Page {
       start,
       day: row.day,
       leaf: hex(leaf),
+      leafShort: short(hex(leaf)),
       leafIndex: row.index,
       leavesThatDay: meta.feuilles,
       pathLength: path.filter(Boolean).length,
       root: rebuilt,
+      rootShort: short(rebuilt),
       transaction: meta.tx,
+      transactionShort: short(meta.tx),
       ledger: onLedger.ledger,
       closeTime: onLedger.closeTime,
       link: EXPLORER + meta.tx,
@@ -313,7 +321,7 @@ export class Page {
       today: { date: now.toISOString().slice(0, 10) },
       method: { ...METHOD },
       notSupported: [...NOT_SUPPORTED],
-      anchoredDays: days.map((d) => ({ day: d.day ?? d.jour, leaves: d.feuilles, transaction: d.tx, closed: d.clos })),
+      anchoredDays: days.map((d) => ({ day: d.day ?? d.jour, leaves: d.feuilles, transaction: d.tx, transactionShort: short(d.tx), closed: d.clos })),
       codeCount: codes.length,
       exampleQueries: ["Code civil, article 1240, on 2026-11-15", "Code du travail, article L1121-1"],
       shown: this.shown,

@@ -30,7 +30,7 @@ class SiteActions {
     });
     actions.register({
       name: "verify_anchor",
-      description: "Verify one article version's anchoring in this browser: rebuild its Merkle path from the published fingerprints to the day's root, read the anchoring transaction on the XRPL testnet, and compare. Returns valid true or false with each check, the day, the root, the transaction link and its close time. Changes nothing.",
+      description: "Verify one article version's anchoring in this browser: rebuild its Merkle path from the published fingerprints to the day's root, read the anchoring transaction on the XRPL testnet, and compare. Returns valid true or false with each check, the day, the root and transaction with ready-made short forms (rootShort, transactionShort, leafShort), the transaction link and its close time. Changes nothing.",
       effect: "read",
       timeoutMs: 60000,
       inputSchema: {
