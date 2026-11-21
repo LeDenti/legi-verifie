@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: rule-in-force
+    runtime: static
+    buildCommand: "true"
+    staticPublishPath: site
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: "*"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

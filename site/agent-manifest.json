@@ -1,0 +1,83 @@
+{
+  "brand": "Rule in force Assistant",
+  "networks": [
+    {
+      "name": "rule_in_force",
+      "front_man": "clerk",
+      "hocon": "./rule_in_force.network.json",
+      "description": "Ask whether a French law article was in force on a date, and check that its text was anchored on the XRP Ledger before, verified in your browser.",
+      "tags": [
+        "agentified-website",
+        "law",
+        "france",
+        "legifrance",
+        "xrpl",
+        "anchoring",
+        "merkle-proof"
+      ],
+      "sample_queries": [
+        "Was article 1240 of the Code civil in force on 2026-11-15?",
+        "Which versions of article L1121-1 of the Code du travail exist?",
+        "What does an anchor prove, and what does it not prove?",
+        "Am I liable under article 1240 if my dog bit someone?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Local agents and page-local actions only."
+  },
+  "agent_mcp": {
+    "protocol": "nsdeploy-agent-mcp/v1",
+    "network": "rule_in_force",
+    "front_man": "clerk",
+    "available": false,
+    "reason": "This is a static bundle; a public MCP facade requires an application host."
+  },
+  "theme": {
+    "primary": "#2a4d7a"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "rule_in_force",
+        "front_man": "clerk",
+        "aliases": [
+          "rule_in_force",
+          "clerk"
+        ],
+        "url": "rule_in_force"
+      }
+    ],
+    "imports": [],
+    "link_updates": {
+      "mode": "browser-local"
+    }
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "actions": {
+    "version": 1,
+    "module": "./site-actions.js",
+    "bridge": "./bridge/action-bridge.html",
+    "agentTools": [
+      "get_page",
+      "look_up",
+      "verify_anchor"
+    ]
+  }
+}

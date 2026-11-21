@@ -1,0 +1,18 @@
+{
+  "protocol": "nsdeploy-link/v1",
+  "exports": [
+    {
+      "network": "rule_in_force",
+      "front_man": "clerk",
+      "aliases": [
+        "rule_in_force",
+        "clerk"
+      ],
+      "url": "rule_in_force"
+    }
+  ],
+  "imports": [],
+  "link_updates": {
+    "mode": "browser-local"
+  }
+}

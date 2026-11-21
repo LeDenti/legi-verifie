@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rule in force</title>
+<meta name="description" content="Was this French law article in force on that date, and was its text anchored on the XRP Ledger before? Verified in your browser.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="script.js"></script>
+<script type="module" src="site.js"></script>
+</head>
+<body>
+<main>
+  <header style="display:grid;gap:8px">
+    <h1>Rule in force</h1>
+    <p class="lead">Was this French law article in force on that date, and was its text published and anchored before? Each day's articles are fingerprinted and anchored on the XRP Ledger; the proof is rebuilt in your browser.</p>
+  </header>
+
+  <form id="f">
+    <div class="row">
+      <label class="grow">Code
+        <input id="code" name="code" list="codes" autocomplete="off" placeholder="Code civil" required>
+        <datalist id="codes"></datalist>
+      </label>
+      <label>Article
+        <input id="num" name="num" autocomplete="off" placeholder="1240" required>
+      </label>
+      <label>Date (optional)
+        <input id="date" name="date" type="date">
+      </label>
+      <button id="go" type="submit">Check</button>
+    </div>
+    <p class="ex">Example: <a href="#" id="ex">Code civil, article 1240, today</a></p>
+  </form>
+
+  <p id="st" class="status" aria-live="polite"></p>
+
+  <section id="res" hidden>
+    <h2 id="who"></h2>
+    <p id="verdict" class="verdict"></p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>In force from</th><th>Until</th><th>State</th><th>First anchored</th><th>Version</th></tr></thead>
+        <tbody id="versions"></tbody>
+      </table>
+    </div>
+    <div id="proof" class="proof"></div>
+  </section>
+
+  <section id="assistant" class="assistant" aria-labelledby="assistant-heading">
+    <h2 id="assistant-heading">Ask Rule in force</h2>
+    <p>Ask in plain words: whether an article was in force on a date, which versions exist, and whether its anchor checks out.</p>
+    <p class="assistant-note">Your messages and the records it reads go to the AI provider you choose in the settings below, with your own key. This page has no server and pays for nothing. It gives no legal advice.</p>
+    <p id="assistant-status" role="status">Connecting the assistant… If this message stays, the assistant could not load. You can still use the page directly.</p>
+    <div id="agent-app">
+      <div data-ns-slot="header"></div>
+      <div class="assistant-panels">
+        <div data-ns-slot="chat"></div>
+        <div data-ns-slot="agents"></div>
+      </div>
+      <div data-ns-slot="settings"></div>
+    </div>
+  </section>
+
+  <p class="foot">Data: DILA LEGI open data (Licence Ouverte / Open Licence 2.0), fingerprinted by <a href="https://github.com/LeDenti/legi-ancrage">legi-ancrage</a> and anchored on the XRPL testnet by account rD1WDd7X4dEjaTDJ1UXPyBzUpiSiZbTGrX. Not legal advice; the official text is on <a href="https://www.legifrance.gouv.fr/">Légifrance</a>. Article 8 of the <a href="https://zenodo.org/records/24176443">bonobo code</a>: a rule not anchored before an act does not apply to it. An open agentic website: <a href="agent-manifest.json">agent-manifest.json</a>, <a href="rule_in_force.network.json">agent network</a>. Signed matter-x-.</p>
+</main>
+</body>
+</html>
