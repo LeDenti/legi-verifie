@@ -26,6 +26,7 @@ if ! mkdir "$LOCK" 2>/dev/null; then
   fi
 fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT
+date '+%Y-%m-%d %H:%M:%S' > "$J/dernier_passage"
 
 # Last anchored day in legi-ancrage, last published day on the site.
 ancre=$(/usr/bin/python3 -I -c "import json,sys; print(max(json.loads(l)['jour'] for l in open(sys.argv[1]) if l.strip()))" "$SRC/ancrages.jsonl" 2>/dev/null)
