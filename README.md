@@ -61,4 +61,13 @@ node ../../cognizant-agentic-web/spec/skills/agentify-website/scripts/build_netw
 node --test "tests/*.test.mjs"          # LIVE=1 also reads the newest anchor on the testnet
 ```
 
+## Nightly update
+
+`outils/maj_quotidienne.sh` runs at the end of every legi-ancrage passage (every 30 min
+and at 21:30, on the anchoring Mac). When a new day is anchored it reads the new
+archive's article numbers, rebuilds `site/data` (stopping if a rebuilt root differs from
+the anchored one), runs the offline tests and pushes; Render redeploys the static site.
+Data updates are folded into one `data:` commit (amend + force-with-lease) so the
+repository does not grow every night. Log: `journal/maj.log` (not in git).
+
 Signed matter-x-.
